@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:clapme_client/screens/goal_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:clapme_client/screens/home_screen.dart';
 import 'package:clapme_client/screens/login_screen.dart';
 import 'package:clapme_client/screens/signup_screen.dart';
 import 'package:clapme_client/screens/onboarding_screen.dart';
 import 'package:clapme_client/screens/routine_list_screen.dart';
 import 'package:clapme_client/screens/routine_list_weekly_screen.dart';
+import 'package:clapme_client/screens/goal_detail_screen.dart';
 import 'package:clapme_client/screens/mypage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,6 +43,10 @@ void main() async {
   final Auth _auth = Auth();
   final bool isLogged = await _auth.isLogged();
 
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+
   runApp(MyApp(isLogged));
 }
 
@@ -60,6 +67,7 @@ class _MyAppState extends State<MyApp> {
           '/login': (BuildContext context) => new Login(),
           '/onboarding': (BuildContext context) => new Onboarding(),
           '/routinelist': (BuildContext context) => new MyPage(),
+          '/goaldetail': (BuildContext context) => new GoalDetail()
         },
         initialRoute: widget.isLogged ? '/routinelist' : '/',
         home: widget.isLogged
@@ -79,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                     indicatorColor: Color(0xff7ACBAA),
                   ),
                   body: TabBarView(
-                    children: [RoutineListScreen(), Onboarding(), MyPage()],
+                    children: [RoutineListScreen(), GoalDetail(), MyPage()],
                   ),
                 ),
               )
