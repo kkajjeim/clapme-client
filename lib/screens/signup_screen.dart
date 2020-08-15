@@ -22,17 +22,9 @@ class _SignupState extends State<Signup> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.fromLTRB(20.0, 70.0, 0.0, 0.0),
-            child: Text('WELCOME',
-                style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold)),
+            child: Text('Enter your info',
+                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(270.0, 25.0, 0.0, 0.0),
-            child: Text('.',
-                style: TextStyle(
-                    fontSize: 100.0,
-                    fontWeight: FontWeight.bold,
-                    color: Clapme_green)),
-          )
         ],
       ),
     );
@@ -50,7 +42,7 @@ class _SignupState extends State<Signup> {
           // hintStyle: ,
           focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-            color: Clapme_green,
+            color: MYRO_violet,
           ))),
       validator: (value) => value.isEmpty ? '이메일을 입력해주세요' : null,
       onSaved: (value) => _email = value,
@@ -65,8 +57,8 @@ class _SignupState extends State<Signup> {
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.bold,
               color: Colors.black),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Clapme_green))),
+          focusedBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: MYRO_violet))),
       obscureText: true,
       validator: (value) => value.isEmpty ? '패스워드를 입력해주세요' : null,
       onSaved: (value) => _password = value,
@@ -81,8 +73,8 @@ class _SignupState extends State<Signup> {
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.bold,
               color: Colors.black),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Clapme_green))),
+          focusedBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: MYRO_violet))),
       validator: (value) => value.isEmpty ? '이름을 입력해주세요' : null,
       onSaved: (value) => _username = value,
     );
@@ -93,7 +85,7 @@ class _SignupState extends State<Signup> {
         height: 50.0,
         child: Material(
           borderRadius: BorderRadius.circular(20.0),
-          color: Clapme_green,
+          color: MYRO_violet,
           elevation: 1.0,
           child: MaterialButton(
             onPressed: validateAndSave,
@@ -123,7 +115,7 @@ class _SignupState extends State<Signup> {
             borderRadius: BorderRadius.circular(20.0)),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed('/login');
           },
           child: Center(
             child: Text('Go Back',
@@ -157,7 +149,7 @@ class _SignupState extends State<Signup> {
                 ),
                 onPressed: () => Navigator.of(context).pushNamed('/login'),
                 width: 170,
-                color: Clapme_green)
+                color: MYRO_violet)
           ],
         ).show();
       } else {
@@ -176,28 +168,31 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return new Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildTypography(),
-              Container(
-                padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-                child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: <Widget>[
-                        _formEmailField(),
-                        SizedBox(height: 10.0),
-                        _formPasswordField(),
-                        SizedBox(height: 10.0),
-                        _formNameField(),
-                        SizedBox(height: 50.0),
-                        _formSubmitButton(),
-                        SizedBox(height: 20.0),
-                      ],
-                    )),
-              ),
-              _goBackButton()
-            ]));
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(30.0, 40, 30, 20),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildTypography(),
+                Container(
+                  padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+                  child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: <Widget>[
+                          _formEmailField(),
+                          SizedBox(height: 21.0),
+                          _formPasswordField(),
+                          SizedBox(height: 21.0),
+                          _formNameField(),
+                          SizedBox(height: 42.0),
+                          _formSubmitButton(),
+                          SizedBox(height: 21.0),
+                        ],
+                      )),
+                ),
+                _goBackButton()
+              ]),
+        ));
   }
 }

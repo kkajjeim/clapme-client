@@ -14,7 +14,7 @@ import 'package:clapme_client/screens/new_routine_screen.dart';
 import 'package:clapme_client/screens/goal_detail_screen.dart';
 import 'package:clapme_client/screens/mypage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:clapme_client/theme/color_theme.dart';
+import 'package:clapme_client/screens/new_onboarding_screen.dart';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:clapme_client/components/nofi_component.dart';
@@ -60,20 +60,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    print('islogged');
+    print(widget.isLogged);
     return MaterialApp(
         routes: <String, WidgetBuilder>{
           '/signup': (BuildContext context) => new Signup(),
           '/login': (BuildContext context) => new Login(),
-          '/onboarding': (BuildContext context) => new Onboarding(),
+          '/onboarding': (BuildContext context) => new NewOnboarding(),
           '/today': (BuildContext context) => new TodayScreen(),
-          // '/routinelist': (BuildContext context) => new MainScrren(),
-          // '/routinelist': (BuildContext context) => new GoalList(),
-          '/goaldetail': (BuildContext context) => new GoalDetail(),
+          '/routine': (BuildContext context) => new RoutineListScreen()
         },
-        initialRoute: widget.isLogged ? '/' : '/',
-        home: Scaffold(body: TodayScreen()));
+        initialRoute: widget.isLogged ? '/onboarding' : '/onboarding',
+        home: Scaffold(body: NewOnboarding()));
   }
 }
-
-// final routes = {'/': (BuildContext context) => HomeScreen};
-final routes = {'/': (BuildContext context) => NewRoutine};

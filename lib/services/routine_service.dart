@@ -10,12 +10,9 @@ import 'package:clapme_client/utils/api_helper.dart';
 var server = 'http://15.164.96.238:5000';
 
 // 루틴 등록
-
 Future<Object> postRoutine(Routine body) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  // String accessToken = prefs.getString('accessToken');
-  String accessToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJteW5zbWFlaXMiLCJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsInByb2ZpbGUiOm51bGwsInBpY191cmwiOm51bGx9.O2dKwUdOjVrQBnkUNJIupUoo5wrv6tiTYzjtRN6LwHA';
+  String accessToken = prefs.getString('accessToken');
   var headers = <String, String>{
     'Content-Type': 'application/json; charset=UTF-8',
     'Authorization': accessToken
@@ -27,9 +24,15 @@ Future<Object> postRoutine(Routine body) async {
     headers: headers,
     body: jsonBody,
   );
-  print(response.body);
-  print(response.statusCode);
   if (response.statusCode == 200) {
+    // 알람 등록
+    var result = json.decode(response.body);
+    int id = result['id'];
+    Routine routine = Routine.fromJson(result);
+
+    AlarmService alarmService = AlarmService();
+    alarmService.setWeeklyAlarms(id, routine);
+
     return true;
   } else {
     return false;
@@ -37,8 +40,9 @@ Future<Object> postRoutine(Routine body) async {
 }
 
 Future<List<RoutineColor>> fetchRoutineColor() async {
-  final accessToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJteW5zbWFlaXMiLCJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsInByb2ZpbGUiOm51bGwsInBpY191cmwiOm51bGx9.O2dKwUdOjVrQBnkUNJIupUoo5wrv6tiTYzjtRN6LwHA';
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String accessToken = prefs.getString('accessToken');
+
   var headers = <String, String>{
     'Content-Type': 'application/json; charset=UTF-8',
     'Authorization': accessToken
@@ -98,8 +102,6 @@ class RoutineService {
     }
   }
 }
-
-
 
 // Future<List<Routine>> fetchDayRoutine(dayOfWeek) async {
 //   SharedPreferences prefs = await SharedPreferences.getInstance();

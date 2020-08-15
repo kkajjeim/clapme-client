@@ -62,8 +62,8 @@ class _TodayScreenState extends State<TodayScreen> {
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 50.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => NewRoutine()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NewRoutine()));
             },
             child: Icon(Icons.add, size: 20.0, color: Colors.black87),
           ),
@@ -72,8 +72,10 @@ class _TodayScreenState extends State<TodayScreen> {
           padding: const EdgeInsets.fromLTRB(10, 0, 0, 50.0),
           child: GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RoutineListScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RoutineListScreen()));
               },
               child: Icon(Icons.list, size: 20.0, color: Colors.black87)),
         )
@@ -237,7 +239,6 @@ class _TodayScreenState extends State<TodayScreen> {
               ],
             );
           } else if (snapshot.hasError) {
-            print(snapshot.error);
             return Icon(Icons.error_outline, size: 40.0);
           } else {
             return CircularProgressIndicator();
@@ -248,6 +249,7 @@ class _TodayScreenState extends State<TodayScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        color: Colors.white,
         child: Padding(
             padding: const EdgeInsets.fromLTRB(25, 40, 25, 0),
             child: Column(

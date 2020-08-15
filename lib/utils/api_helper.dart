@@ -9,18 +9,13 @@ class ApiHelper {
   String _baseUrl = 'http://15.164.96.238:5000';
 
   Future<String> _getAccessToken() async {
-//    SharedPreferences prefs = await SharedPreferences.getInstance();
-//    return prefs.getString('accessToken');
-      return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJteW5zbWFlaXMiLCJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsInByb2ZpbGUiOm51bGwsInBpY191cmwiOm51bGx9.O2dKwUdOjVrQBnkUNJIupUoo5wrv6tiTYzjtRN6LwHA';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('accessToken');
   }
 
   Future<dynamic> post(String uri, dynamic body) async {
     uri = '${this._baseUrl}/$uri';
     String accessToken = await this._getAccessToken();
-
-    print(' ---- API POST ---- ');
-    print(uri);
-    print(accessToken);
 
     var headers = {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -38,10 +33,6 @@ class ApiHelper {
         : '${this._baseUrl}/$uri';
 
     String accessToken = await this._getAccessToken();
-
-    print(' ---- API GET ---- ');
-    print(uri);
-    print(accessToken);
 
     var headers = {'Authorization': accessToken};
 
