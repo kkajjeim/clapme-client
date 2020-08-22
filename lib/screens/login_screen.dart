@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
               color: Colors.black),
           focusedBorder:
               UnderlineInputBorder(borderSide: BorderSide(color: MYRO_violet))),
-      validator: (value) => value.isEmpty ? '이메일을 입력해주세요' : null,
+      validator: (value) => value.isEmpty ? 'please enter email' : null,
       onSaved: (value) => _email = value,
     );
   }
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
               color: Colors.black),
           focusedBorder:
               UnderlineInputBorder(borderSide: BorderSide(color: MYRO_violet))),
-      validator: (value) => value.isEmpty ? '패스워드를 입력해주세요' : null,
+      validator: (value) => value.isEmpty ? 'please enter password' : null,
       onSaved: (value) => _password = value,
       obscureText: true,
     );
@@ -115,14 +115,14 @@ class _LoginState extends State<Login> {
       form.save();
       bool isLoginSuccess = await fetchLogin(_email, _password);
       if (isLoginSuccess) {
-        Navigator.of(context).pushNamed('/routine');
+        Navigator.of(context).pushNamed('/today');
       } else {
         Alert(
                 context: context,
                 type: AlertType.none,
                 style: alertFailedStyle,
-                title: "로그인 실패 🤔",
-                desc: "다시 시도해주세요")
+                title: "fail to log in",
+                desc: "please try again")
             .show();
       }
     }
