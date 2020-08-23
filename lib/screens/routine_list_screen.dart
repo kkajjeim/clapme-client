@@ -24,11 +24,7 @@ class _RoutineListScreenState extends State<RoutineListScreen> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-            builder: (context) => TodayScreen()
-            )
-        );
+            context, MaterialPageRoute(builder: (context) => TodayScreen()));
       },
       child: Row(children: <Widget>[
         Padding(
@@ -45,6 +41,15 @@ class _RoutineListScreenState extends State<RoutineListScreen> {
             ))
       ]),
     );
+  }
+
+  Color _getSubColor(color) {
+    List<String> brightColors = ['0xff8C4332', '0xffF2EAC2'];
+    Color subColor = Colors.white;
+    if (brightColors.contains(color)) {
+      subColor = Colors.black87;
+    }
+    return subColor;
   }
 
   Widget _routineCard(title, color, mon, tue, wed, thu, fri, sat, sun) {
@@ -84,7 +89,7 @@ class _RoutineListScreenState extends State<RoutineListScreen> {
                         height: 1.5,
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white,
+                        color: _getSubColor(color),
                       )),
                 ),
               ),

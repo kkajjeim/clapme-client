@@ -117,17 +117,45 @@ class _TodayScreenState extends State<TodayScreen> {
 
   Widget _routineSuccessButton(int id, bool success) {
     if (success) {
-      return ClipOval(
-          child: Container(
-              height: 25.0,
-              width: 25.0,
-              color: Colors.black87,
-              child: Center(
-                  child: Icon(
-                Icons.check,
-                color: Colors.white,
-                size: 20.0,
-              ))));
+      return GestureDetector(
+          onTap: () async {
+            for (RoutineWithSuccess routine in routines) {
+              if (routine.id == id) {
+                routine.success = false;
+                break;
+              }
+            }
+            setState(() {
+              this.routines = this.routines;
+            });
+            try {
+              List<RoutineWithSuccess> updatedRoutines =
+                  await this.service.postRoutineSuccess(id);
+              setState(() {
+                this.routines = updatedRoutines;
+              });
+            } catch (e) {
+              Alert(
+                      context: context,
+                      type: AlertType.none,
+                      style: alertFailedStyle,
+                      title: "Cannot Update",
+                      desc: e.message)
+                  .show();
+            }
+          },
+          child: ClipOval(
+              child: Container(
+                  height: 25.0,
+                  width: 25.0,
+                  color: Colors.black87,
+                  child: Center(
+                      child: Center(
+                          child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 20.0,
+                  ))))));
     } else {
       return GestureDetector(
           onTap: () async {
@@ -141,7 +169,8 @@ class _TodayScreenState extends State<TodayScreen> {
               this.routines = this.routines;
             });
             try {
-              List<RoutineWithSuccess> updatedRoutines = await this.service.postRoutineSuccess(id);
+              List<RoutineWithSuccess> updatedRoutines =
+                  await this.service.postRoutineSuccess(id);
               setState(() {
                 this.routines = updatedRoutines;
               });
@@ -161,15 +190,18 @@ class _TodayScreenState extends State<TodayScreen> {
                   width: 25.0,
                   color: Colors.white,
                   child: Center(
-                      child: Icon(
-                          Icons.check,
-                          color: MainTheme().lightGrey,
-                          size:20.0
-                      ))
-              )
-          )
-      );
+                      child: Icon(Icons.check,
+                          color: MainTheme().lightGrey, size: 20.0)))));
     }
+  }
+
+  Color _getSubColor(color) {
+    List<String> brightColors = ['0xff8C4332', '0xffF2EAC2'];
+    Color subColor = Colors.white;
+    if (brightColors.contains(color)) {
+      subColor = Colors.black87;
+    }
+    return subColor;
   }
 
   Widget _routineCard(id, title, time, color, success) {
@@ -200,7 +232,7 @@ class _TodayScreenState extends State<TodayScreen> {
                         height: 1.5,
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white,
+                        color: _getSubColor(color),
                       )),
                 ),
               ),
